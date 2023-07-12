@@ -7,10 +7,10 @@ const Card = (card) => {
         <>
 
             {list.map((item, index) => (
-                <li key={index} className="card-item">
+                <div key={index} className="card-item">
                     {item.image && <img className="card-cover" src={item.image} alt="" />}
                     { item.title }
-                </li>
+                </div>
             ))}
 
 

@@ -1,4 +1,4 @@
-li.card-item {
+div.card-item {
     background-color: white;
     padding: 10px;
     border-radius: 3px;
@@ -11,7 +11,7 @@ li.card-item {
     /*li ler birbirinden uzaklaşıyor s*/
   }
 
-  li img {
+  div img {
 
     display: block;
 

@@ -19,6 +19,7 @@
     font-weight: bold;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    cursor: pointer;
 }
 
 .column footer {
@@ -31,7 +32,7 @@
     border-bottom-right-radius: 5px;
 }
 
-.column ul.card-list {
+.column div.card-list {
     list-style-type: none;
     margin: 0;
     max-height: calc(100% - 72px);
