@@ -1,0 +1,39 @@
+.column {
+    flex: 0 0 auto;
+    width: 300px;
+    height: calc(100% - 10px);
+
+
+    >* {
+        background-color: #e0e0eb;
+        color: #333;
+        padding: 0 8px;
+    }
+}
+
+.column header {
+    padding-left: 15px;
+    height: 36 px;
+    line-height: 36px;
+    font-size: 16px;
+    font-weight: bold;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.column footer {
+    padding-left: 10px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.column ul.card-list {
+    list-style-type: none;
+    margin: 0;
+    max-height: calc(100% - 72px);
+    overflow-y: auto;
+}

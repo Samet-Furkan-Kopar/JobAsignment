@@ -1,0 +1,23 @@
+li.card-item {
+    background-color: white;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(58, 57, 57, 0.9);
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    /*li ler birbirinden uzaklaşıyor s*/
+  }
+
+  li img {
+
+    display: block;
+
+    width: calc(100%);
+    margin: -15px 0 15px (-15px);
+
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
