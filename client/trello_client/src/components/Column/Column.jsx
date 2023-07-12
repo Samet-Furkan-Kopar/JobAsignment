@@ -1,8 +1,10 @@
 import "./Column.css"
 import Card from "../Card/Card.jsx"
+import mapOrder from "../../utilities/sorts.js"
 export default function Column(column) {
-    //const cards = column.column.cards;
-    //  console.log(column.column)
+    const cards = column.column;
+     const orderList = mapOrder(column.column.cards,column.column.cardOrder,"id")
+      console.log(orderList)
     return (
         <>
             <div className="column">
@@ -15,7 +17,7 @@ export default function Column(column) {
 
 
                     }) */} 
-                <Card key={column.column.id} value={column.column}/>
+                <Card key={cards.id} value={cards}/>
                       
 
                 </ul>

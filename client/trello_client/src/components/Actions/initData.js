@@ -2,13 +2,13 @@ export const initData = {
     boards:[
         {
             id:'board-1',
-            columnOrder: ['column-3', 'column-2','column-1'],
+            columnOrder: ['column-1', 'column-2','column-3'],
             columns:[
                 {
                     id:'column-1',
                     boardId: 'board-1',
                     title: 'Todo 1',
-                    cardOrder: ['card-1', 'card-2','card-3','card-4', 'card-5','card-6','card-7'],
+                    cardOrder: ['card-7','card-2','card-3','card-4','card-5','card-6','card-1'],
                     cards:[
                         {
                             id:'card-1',
@@ -58,7 +58,7 @@ export const initData = {
                 }
                 ,
                 {
-                    id:'column-2 ',
+                    id:'column-2',
                     boardId: 'board-1',
                     title: 'Todo 2',
                     cardOrder: ['card-8', 'card-9','card-10'],
@@ -68,7 +68,7 @@ export const initData = {
                             boardId: 'board-1',
                             columnId: 'column-2',
                             title: 'Title of card 8',
-                            image:null
+                            image:'https://raw.githubusercontent.com/haryphamdev/sharing-host-files/master/trello/img-design.png'
                         },{
                             id:'card-9',
                             boardId: 'board-1',
@@ -85,7 +85,7 @@ export const initData = {
                     ]
                 },
                 {
-                    id:'column-3 ',
+                    id:'column-3',
                     boardId: 'board-1',
                     title: 'Todo 3',
                     cardOrder: ['card-11', 'card-12','card-13'],

@@ -3,7 +3,7 @@ import Column from "../Column/Column.jsx"
 import { initData } from "../Actions/initData.js"
 import { useEffect, useState } from "react"
 import _ from "lodash"
-//import mapOrder from "../../utilities/sorts.js"
+import mapOrder from "../../utilities/sorts.js"
 
 export default function BoardContent() {
     const [board, setBoard] = useState({});
@@ -15,13 +15,11 @@ export default function BoardContent() {
             setBoard(boardInitData);
 
 
-           // const sortedColumns = mapOrder(boardInitData.columns, boardInitData.columnOrder, 'columnId');
+          
 
-          //  console.log(sortedColumns)
-
-          boardInitData.columns.sort((a,b)=> boardInitData.columnOrder.indexOf(a.id) - boardInitData.columnOrder.indexOf(b.id))
+        //  boardInitData.columns.sort((a,b)=> boardInitData.columnOrder.indexOf(a.id) - boardInitData.columnOrder.indexOf(b.id))
         //  console.log(boardInitData.columns)
-            setColumns(boardInitData.columns);
+            setColumns(mapOrder(boardInitData.columns, boardInitData.columnOrder, "id"));
             
         }
     }, [])

@@ -3,4 +3,4 @@ const mapOrder = (array,order,key) =>{
     return array;
 }
 
-export default  mapOrder;
+export default mapOrder;
