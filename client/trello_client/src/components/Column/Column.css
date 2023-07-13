@@ -38,3 +38,20 @@
     max-height: calc(100% - 72px);
     overflow-y: auto;
 }
+
+/*tasırken yan sekilde tasınmaya yarayan css*/
+.column .card-ghost {
+    transition: transform 0.18s ease;
+    transform: rotateZ(5deg)
+  }
+  
+ .column .card-ghost-drop{
+    transition: transform 0.18s ease-in-out;
+    transform: rotateZ(0deg)
+  }
+
+ .column .card-drop-preview {
+    background-color: rgba(150, 150, 200, 0.1);
+    border: 1px dashed #abc;
+    margin: 5px;
+  }

@@ -1,5 +1,5 @@
 import './App.css'
-import AppBar from  "./components/AppBar/AppBar.jsx"
+import AppBar from "./components/AppBar/AppBar.jsx"
 import BoardBar from "./components/BoardBar/BoardBar.jsx"
 import BoardContent from "./components/BoardContent/BoardContent.jsx"
 function App() {
@@ -8,10 +8,10 @@ function App() {
   return (
     <>
       <div className="trello-master">
-        <AppBar/>
-        <BoardBar/>
-        <BoardContent/>
-        
+        <AppBar />
+        <BoardBar />
+        <BoardContent />
+
       </div>
     </>
   )

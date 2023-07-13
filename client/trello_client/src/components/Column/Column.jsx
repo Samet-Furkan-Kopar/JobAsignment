@@ -5,9 +5,13 @@ import { Container, Draggable } from "react-smooth-dnd";
 
 
 export default function Column(column) {
-    const cards = column.column;
+
+    //const cards = column.column;
     const orderList = mapOrder(column.column.cards, column.column.cardOrder, "id")
-    console.log(orderList)
+    // column.column.cards = orderList;
+    // console.log(orderList)//orderlistin parentini göndermek lazım
+    // const cards = column.column;
+    //console.log("cards", cards)
 
     const onCardDrop = (dropResult) => {
         console.log(">>> inside on carDrop", dropResult)
@@ -20,21 +24,12 @@ export default function Column(column) {
                 <header className="column-drag-handle">{column.column.title}</header>
                 <div className="card-list">
                     <Container
-
                         groupName="col"
-                        onDragStart={e => console.log("drag started", e)}
-                        onDragEnd={e => console.log("drag end", e)}
                         onDrop={onCardDrop}
-                        getChildPayload={index => cards[index]}
+                        getChildPayload={index => orderList[index]}
                         dragClass="card-ghost"
                         dropClass="card-ghost-drop"
-                        onDragEnter={() => {
-                            console.log("drag enter:", column.id);
-                        }}
-                        onDragLeave={() => {
-                            console.log("drag leave:", column.id);
-                        }}
-                        onDropReady={p => console.log('Drop ready: ', p)}
+
                         dropPlaceholder={{
                             animationDuration: 150,
                             showOnTop: true,
@@ -42,16 +37,19 @@ export default function Column(column) {
                         }}
                         dropPlaceholderAnimationDuration={200}
                     >
-                        {/*column.column bunu göndermeyi denecolumn.column && column.column.map((card) => {
+                        {orderList && orderList.length > 0 ?
 
-                        <Card key={card.id} value={card} />
+                            orderList.map((order) => (
+                                <Draggable key={order.id}>
+                                    <Card value={order} />
+                                </Draggable>
+                            )) : <></>}
 
-                               ///2 burayı aktif etmeye çalış çünkü verileri mapleyerek göndermediğinden sürüklerken tüm içerik gidiyor
-                    }) */}
 
-                        <Draggable key={cards.id}>
-                            <Card value={cards} />
-                        </Draggable>
+                        {/* <Draggable key={cards.id}>
+                                <Card value={cards} />
+                            </Draggable> */}
+
                     </Container>
 
                 </div>

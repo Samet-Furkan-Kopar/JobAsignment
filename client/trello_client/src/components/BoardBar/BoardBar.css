@@ -1,8 +1,8 @@
 .navbar-board {
-    padding-left: 10px;
-    /*gap*/
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    background-color: #0079bf;
-  }
+  padding-left: 10px;
+  /*gap*/
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  background-color: #0079bf;
+}
