@@ -4,6 +4,7 @@ import { initData } from "../Actions/initData.js"
 import { useEffect, useState } from "react"
 import _ from "lodash"
 import mapOrder from "../../utilities/sorts.js"
+import applyDrag from "../../utilities/dragDrop.js"
 import { Container, Draggable } from "react-smooth-dnd";
 
 export default function BoardContent() {
@@ -23,8 +24,36 @@ export default function BoardContent() {
     }, [])
 
     const onColumnDrop = (dropResult) => {
-        console.log(">>> inside onColumnDrop", dropResult)
+
+        let newColumns = [...columns];
+        newColumns = applyDrag(newColumns, dropResult)
+        //todo ların yerini değiştirmek için 
+
+        let newBoard = { ...board };
+        newBoard.columnOrder = newColumns.map(column => column.id)
+        newBoard.columns = newColumns;
+
+        setColumns(newColumns);
+        setBoard(newBoard);
+
     }
+
+    const onCardDrop = (dropResult, columnId) => {
+
+        if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+            console.log(">>> inside on carDrop", dropResult, "with columnId", columnId)
+
+            let newColumns = [...columns];
+
+            let currentColumn = newColumns.find(column => column.id === columnId)
+            // console.log("currentColumns: ", currentColumn)
+            currentColumn.cards = applyDrag(currentColumn.cards, dropResult);
+            currentColumn.cardOrder = currentColumn.cards.map(card => card.id);
+            setBoard(newColumns);
+        }
+
+    }
+
 
     if (_.isEmpty(board)) {
         return (
@@ -52,7 +81,7 @@ export default function BoardContent() {
                 {columns && columns.length > 0 && columns.map((column) => {
                     return (
                         <Draggable key={column.id}>
-                            <Column column={column} />
+                            <Column column={column} onCardDrop={onCardDrop} />
                         </Draggable>
                     )
                 })}

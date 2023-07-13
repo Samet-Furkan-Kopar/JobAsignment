@@ -8,15 +8,14 @@ export default function Column(column) {
 
     //const cards = column.column;
     const orderList = mapOrder(column.column.cards, column.column.cardOrder, "id")
+   
+  // console.log(column.onCardDrop)
     // column.column.cards = orderList;
     // console.log(orderList)//orderlistin parentini göndermek lazım
     // const cards = column.column;
     //console.log("cards", cards)
 
-    const onCardDrop = (dropResult) => {
-        console.log(">>> inside on carDrop", dropResult)
-    }
-
+ 
 
     return (
         <>
@@ -25,7 +24,7 @@ export default function Column(column) {
                 <div className="card-list">
                     <Container
                         groupName="col"
-                        onDrop={onCardDrop}
+                        onDrop={(dropResult) => column.onCardDrop(dropResult, column.column.id)}
                         getChildPayload={index => orderList[index]}
                         dragClass="card-ghost"
                         dropClass="card-ghost-drop"
@@ -53,7 +52,12 @@ export default function Column(column) {
                     </Container>
 
                 </div>
-                <footer>Another card</footer>
+                <footer>
+                    <div className="footer-action">
+                    <i className="fa  fa-plus icon"></i> Add Another Card
+                    </div>
+                    
+                </footer>
             </div>
         </>
     )

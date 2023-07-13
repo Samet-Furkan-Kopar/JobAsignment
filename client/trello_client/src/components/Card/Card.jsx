@@ -2,13 +2,15 @@ import "./Card.css"
 
 const Card = (card) => {
     const list = [card.value];
-    console.log("card", list)
+   // console.log("card", list)
     return (
         <>
 
             {list.map((item, index) => (
                 <div key={index} className="card-item">
-                    <div >{item.image && <img className="card-cover" src={item.image} alt="" />}
+                    <div >{item.image && <img className="card-cover" src={item.image} alt=""
+                    onMouseDown={event => event.preventDefault()}
+                    />}
                     {item.title}</div>
                 </div>
             ))}
