@@ -15,8 +15,10 @@ body {
   grid-template-rows: 40px 50px 1fr;
   line-height: 1.3em;
   background-color: #0079bf;
-
-  font-size: 14px;
-  margin-right: 3px;
   color: #333;
+  
+  .icon {
+    font-size: 14px;
+  margin-right: 3px;
+  }
 }

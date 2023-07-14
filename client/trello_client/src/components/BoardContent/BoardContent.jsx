@@ -1,15 +1,27 @@
 import "./BoardContent.css"
 import Column from "../Column/Column.jsx"
 import { initData } from "../Actions/initData.js"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import _ from "lodash"
 import mapOrder from "../../utilities/sorts.js"
 import applyDrag from "../../utilities/dragDrop.js"
 import { Container, Draggable } from "react-smooth-dnd";
-
+import { v4 as uuidv4 } from 'uuid';//benzersiz kimlik oluşturmak için kullanılır
 export default function BoardContent() {
     const [board, setBoard] = useState({});
     const [columns, setColumns] = useState([]);
+    const [isShowAddList, setisShowAddList] = useState(false);
+    const [valueInput, setvalueInput] = useState("")
+    const inputRef = useRef(null);//adliste basınca açılan inputun içine focuslaması için yaptım
+
+
+    useEffect(() => {
+
+        if (isShowAddList === true && inputRef && inputRef.current) {
+            inputRef.current.focus(); //if içindekiler sağlanırsa inputref i verdiğimiz yer focuslanıyor
+
+        }
+    }, [isShowAddList])
 
     useEffect(() => {
         const boardInitData = initData.boards.find(item => item.id === 'board-1')
@@ -65,6 +77,23 @@ export default function BoardContent() {
         )
     }
 
+    const handleAddList = () => {
+        if(!valueInput){
+            if(inputRef && inputRef.current)
+            inputRef.current.focus()
+            return;
+        }
+        const _columns = _.cloneDeep(columns); //columns u clonluyo onun gibi bi coklumn daha oluşturuyoruz
+        _columns.push({
+            id:uuidv4(),
+            boardId:board.id,
+            title: valueInput,
+            cards: []
+        });
+        setColumns(_columns);
+        setvalueInput("")
+    }
+
     return (
         <><div className="board-columns">
             <Container
@@ -85,6 +114,23 @@ export default function BoardContent() {
                         </Draggable>
                     )
                 })}
+
+
+                {isShowAddList === false ? <div className="add-new-column" onClick={() => setisShowAddList(true)}>
+                    <i className="fa fa-plus icon" >Add new Column</i>
+                </div> : <div className="content-add-column">
+                    <input type="text"
+                        className="form-control"
+                        ref={inputRef}
+                        value={valueInput}
+                        onChange={event => setvalueInput(event.target.value)}
+                    />
+                    <div className="group-btn">
+                        <button className="btn btn-success" onClick={() => handleAddList()}>add list</button>
+                        <i className="fa fa-times icon" onClick={() => setisShowAddList(false)}></i>
+                    </div>
+                </div>}
+
 
 
             </Container>
