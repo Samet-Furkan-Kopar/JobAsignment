@@ -2,25 +2,88 @@ import "./Column.css"
 import Card from "../Card/Card.jsx"
 import mapOrder from "../../utilities/sorts.js"
 import { Container, Draggable } from "react-smooth-dnd";
+import Dropdown from 'react-bootstrap/Dropdown';
+import Form from 'react-bootstrap/Form';
+import ConfirmModal from "../Common/ConfirmModal";
+import { useEffect, useRef, useState } from "react";
+import { MODEL_ACTION_CLOSE, MODEL_ACTION_CONFIRM } from "../../utilities/constant.js"
 
-
+//35.dk
 export default function Column(column) {
 
     //const cards = column.column;
     const orderList = mapOrder(column.column.cards, column.column.cardOrder, "id")
-   
-  // console.log(column.onCardDrop)
-    // column.column.cards = orderList;
-    // console.log(orderList)//orderlistin parentini göndermek lazım
-    // const cards = column.column;
-    //console.log("cards", cards)
 
- 
+    const [isShowModelDelete, setisShowModelDelete] = useState(false);
+    const [titleColumn, setTitleColumn] = useState("");
+    const [isFistClick, setIsFistClick] = useState(true);
+    const inputRef = useRef(null)
+
+    useEffect(()=>{
+        if(column.column && column.column.title)
+        setTitleColumn(column.column.title)
+    },[column.column])
+
+    const toggleModel = () => {
+        setisShowModelDelete(!isShowModelDelete)
+    }
+    const onModelAction = (type) => {
+        if (type === MODEL_ACTION_CLOSE) {
+            // do nothing
+        }
+        if (type === MODEL_ACTION_CONFIRM) {
+            //remove column
+        }
+    }
+
+    const selectAllText = (event) => {
+        setIsFistClick(false)
+        if(isFistClick){
+            event.target.select();
+        }
+        //event.target.focus();
+        
+    }
+
+    const handleClickOutSide = () => {
+        setIsFistClick(true)
+    }
 
     return (
         <>
             <div className="column">
-                <header className="column-drag-handle">{column.column.title}</header>
+                <header className="column-drag-handle">
+
+                    <div className="column-title">
+                        <Form.Control
+                            size={"sm"}
+                            type="text"
+                            value={titleColumn}
+                            className="customize-input-column"
+                            onClick={selectAllText}
+                            onChange={event => setTitleColumn(event.target.value)}
+                            speelCheck="false"
+                            onBlur={handleClickOutSide}
+                            onMouseDown={e=> e.preventDefault()}
+                            ref={inputRef}
+                        />
+                    </div>
+                    <div className="column-dropdown">
+
+                        <Dropdown>
+                            <Dropdown.Toggle variant="" id="dropdown-basic" size="sm">
+
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#">Add card</Dropdown.Item>
+                                <Dropdown.Item onClick={toggleModel}>Remove this column</Dropdown.Item>
+                                <Dropdown.Item href="#">Something else</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+
+                </header>
                 <div className="card-list">
                     <Container
                         groupName="col"
@@ -54,11 +117,18 @@ export default function Column(column) {
                 </div>
                 <footer>
                     <div className="footer-action">
-                    <i className="fa  fa-plus icon"></i> Add Another Card
+                        <i className="fa  fa-plus icon"></i> Add Another Card
                     </div>
-                    
+
                 </footer>
             </div>
+            <ConfirmModal
+                show={isShowModelDelete}
+                title={"Remove a column"}
+                content={`are you sure to remove this column: <b>${column.column.title}<b/>`}
+                onAction={onModelAction}
+               
+            />
         </>
     )
 }

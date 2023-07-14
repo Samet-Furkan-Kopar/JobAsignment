@@ -9,16 +9,17 @@
         color: #333;
         padding: 0 8px;
     }
+
     /* &:not(:first-child) {
         margin-bottom: 10px;
       } */
-      margin-left: 10px;
+    margin-left: 10px;
 }
 
 .column header {
     padding-left: 15px;
-    height: 36 px;
-    line-height: 36px;
+    height: 45px;
+    line-height: 45px;
     font-size: 16px;
     font-weight: bold;
     border-top-left-radius: 5px;
@@ -34,12 +35,15 @@
     font-weight: bold;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    color:#888;
-    .footer-action{
+    color: #888;
+
+    .footer-action {
         margin-left: 5px;
         cursor: pointer;
-        &:hover{/* üstüne gelindiğinde belirlediğimiz rengi veriyor  */
-            color:#333;
+
+        &:hover {
+            /* üstüne gelindiğinde belirlediğimiz rengi veriyor  */
+            color: #333;
         }
     }
 }
@@ -55,17 +59,55 @@
 .column .card-ghost {
     transition: transform 0.18s ease;
     transform: rotateZ(5deg);
-    font-weight:bold
-  }
-  
- .column .card-ghost-drop{
+    font-weight: bold
+}
+
+.column .card-ghost-drop {
     transition: transform 0.18s ease-in-out;
     transform: rotateZ(0deg);
-    font-weight: 600;/*taşıdığın şeyin boyutu kadar yer açıyor taşıyacağın yerde*/
-  }
+    font-weight: 600;
+    /*taşıdığın şeyin boyutu kadar yer açıyor taşıyacağın yerde*/
+}
 
- .column .card-drop-preview {
+.column .card-drop-preview {
     background-color: rgba(150, 150, 200, 0.1);
     border: 1px dashed #abc;
     margin: 5px;
-  }
+}
+
+.column-drag-handle {
+    display: flex;
+    padding-right: 3px;
+    padding-top: 5px;
+    padding-left: 7px;
+
+    .column-title {
+        width: 90%;
+    }
+
+    .column-dropdown {
+        width: 10%;
+    }
+
+    .dropdown-toggle {
+        padding-right: 3px;
+
+        &::after {
+            content: "...";
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        &:hover {
+            background-color: gray;
+        }
+
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+
+}
