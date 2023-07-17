@@ -8,6 +8,7 @@ import applyDrag from "../../utilities/dragDrop.js"
 import { Container, Draggable } from "react-smooth-dnd";
 import { v4 as uuidv4 } from 'uuid';//benzersiz kimlik oluşturmak için kullanılır
 export default function BoardContent() {
+
     const [board, setBoard] = useState({});
     const [columns, setColumns] = useState([]);
     const [isShowAddList, setisShowAddList] = useState(false);
@@ -94,6 +95,22 @@ export default function BoardContent() {
         setvalueInput("")
     }
 
+    const onUpdateColumn = (newColumn) =>{
+
+    const columnIdUpdate = newColumn.id;
+    let ncols = [...columns];//original columns
+    let index = ncols.findIndex(item => item.id === columnIdUpdate)
+    if(newColumn._destroy){//destroy true ise silinir yani if içine girer
+        //remove column
+        ncols.splice(index, 1);
+    }
+    else{
+        //update title
+        ncols[index] = newColumn;
+    }
+    setColumns(ncols)
+
+    }
     return (
         <><div className="board-columns">
             <Container
@@ -110,7 +127,10 @@ export default function BoardContent() {
                 {columns && columns.length > 0 && columns.map((column) => {
                     return (
                         <Draggable key={column.id}>
-                            <Column column={column} onCardDrop={onCardDrop} />
+                            <Column column={column} 
+                            onCardDrop={onCardDrop}
+                            onUpdateColumn={onUpdateColumn}
+                            />
                         </Draggable>
                     )
                 })}
@@ -118,7 +138,8 @@ export default function BoardContent() {
 
                 {isShowAddList === false ? <div className="add-new-column" onClick={() => setisShowAddList(true)}>
                     <i className="fa fa-plus icon" >Add new Column</i>
-                </div> : <div className="content-add-column">
+                </div> :
+                 <div className="content-add-column">
                     <input type="text"
                         className="form-control"
                         ref={inputRef}

@@ -48,7 +48,7 @@
     }
 }
 
-.column div.card-list {
+.column .card-list {
     list-style-type: none;
     margin: 0;
     max-height: calc(100% - 72px);
@@ -110,4 +110,18 @@
     }
 
 
+}
+
+.add-new-card .group-btn {
+    display: flex;
+    padding-top: 10px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.add-new-card .group-btn i {
+    font-size: 30px;
+    padding-left: 10px;
+    cursor: pointer;
+    color: #868585;
 }

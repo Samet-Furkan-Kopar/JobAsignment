@@ -11,18 +11,19 @@ import { MODEL_ACTION_CLOSE, MODEL_ACTION_CONFIRM } from "../../utilities/consta
 //35.dk
 export default function Column(column) {
 
-    //const cards = column.column;
+    // const cards = column.column;
     const orderList = mapOrder(column.column.cards, column.column.cardOrder, "id")
 
+    // console.log(title)
     const [isShowModelDelete, setisShowModelDelete] = useState(false);
     const [titleColumn, setTitleColumn] = useState("");
     const [isFistClick, setIsFistClick] = useState(true);
     const inputRef = useRef(null)
 
-    useEffect(()=>{
-        if(column.column && column.column.title)
-        setTitleColumn(column.column.title)
-    },[column.column])
+    useEffect(() => {
+        if (column.column && column.column.title)
+            setTitleColumn(column.column.title)
+    }, [column.column])
 
     const toggleModel = () => {
         setisShowModelDelete(!isShowModelDelete)
@@ -32,21 +33,32 @@ export default function Column(column) {
             // do nothing
         }
         if (type === MODEL_ACTION_CONFIRM) {
-            //remove column
+            const newColumn = {
+                ...column.column,
+                _destroy: true // bu nesnenin silinmesi gerekiyor (true yaptığımızdan)
+            }
+            column.onUpdateColumn(newColumn)
+            setisShowModelDelete(false)
         }
     }
 
     const selectAllText = (event) => {
         setIsFistClick(false)
-        if(isFistClick){
+        if (isFistClick) {
             event.target.select();
         }
         //event.target.focus();
-        
+
     }
 
     const handleClickOutSide = () => {
-        setIsFistClick(true)
+        setIsFistClick(true);
+        const newColumn = {
+            ...column.column,
+            title: titleColumn,
+            _destroy: false
+        }
+        column.onUpdateColumn(newColumn)
     }
 
     return (
@@ -62,9 +74,9 @@ export default function Column(column) {
                             className="customize-input-column"
                             onClick={selectAllText}
                             onChange={event => setTitleColumn(event.target.value)}
-                            speelCheck="false"
-                            onBlur={handleClickOutSide}
-                            onMouseDown={e=> e.preventDefault()}
+                            spellCheck="false"
+                            onBlur={handleClickOutSide}//focus dışına çıkıldığında mesela mouse ile başka bir alana tıklanıldığında burası tetiklernir
+                            onMouseDown={e => e.preventDefault()}
                             ref={inputRef}
                         />
                     </div>
@@ -107,17 +119,23 @@ export default function Column(column) {
                                 </Draggable>
                             )) : <></>}
 
-
-                        {/* <Draggable key={cards.id}>
-                                <Card value={cards} />
-                            </Draggable> */}
-
                     </Container>
+                    <div className="add-new-card">
+                        <textarea rows={2}
+                            className="form-control"
+                            placeholder="Enter a title for this card..."
+                        > 
+                        </textarea>
+                        <div className="group-btn">
+                            <button className="btn btn-primary" >add card</button>
+                            <i className="fa fa-times icon" ></i>
+                        </div>
+                    </div>
 
                 </div>
                 <footer>
                     <div className="footer-action">
-                        <i className="fa  fa-plus icon"></i> Add Another Card
+                        <i className="fa fa-plus icon"></i> Add Another Card
                     </div>
 
                 </footer>
@@ -127,7 +145,7 @@ export default function Column(column) {
                 title={"Remove a column"}
                 content={`are you sure to remove this column: <b>${column.column.title}<b/>`}
                 onAction={onModelAction}
-               
+
             />
         </>
     )

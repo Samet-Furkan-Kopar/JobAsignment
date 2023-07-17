@@ -31,16 +31,17 @@
     border-radius: 8px;
 
   }
-/*todoları taşırken iz bırakan css*/
+
+  /*todoları taşırken iz bırakan css*/
   .column-drop-preview {
     background-color: rgba(150, 150, 200, 0.1);
     border: 1px dashed #abc;
     margin: 5px 45px 5px 5px;
   }
 
-  .add-new-column{
+  .add-new-column {
     width: 250px;
-    /* height: 32px; */
+    height: 40px;
     line-height: 32px;
     padding: 4px 0 4px 15px;
     cursor: pointer;
@@ -50,24 +51,25 @@
     background-color: hsla(0, 16%, 93%, 0.24);
     border-radius: 5px;
 
-    &:hover{
+    &:hover {
       background-color: #8caed0;
     }
-  } 
-  .content-add-column{
+  }
+
+  .content-add-column {
     width: 250px;
     padding: 5px;
     margin-left: 10px;
     background-color: hsla(0, 16%, 93%, 0.24);
 
-    .group-btn{
+    .group-btn {
       display: flex;
       padding-top: 10px;
       align-items: center;
-    border-radius: 5px;
+      border-radius: 5px;
 
 
-      .icon{
+      .icon {
         font-size: 30px;
         padding-left: 10px;
         cursor: pointer;
