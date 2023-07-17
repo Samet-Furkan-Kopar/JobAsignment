@@ -7,6 +7,8 @@ import Form from 'react-bootstrap/Form';
 import ConfirmModal from "../Common/ConfirmModal";
 import { useEffect, useRef, useState } from "react";
 import { MODEL_ACTION_CLOSE, MODEL_ACTION_CONFIRM } from "../../utilities/constant.js"
+import { v4 as uuidv4 } from 'uuid';//benzersiz kimlik oluşturmak için kullanılır
+
 
 //35.dk
 export default function Column(column) {
@@ -14,11 +16,22 @@ export default function Column(column) {
     // const cards = column.column;
     const orderList = mapOrder(column.column.cards, column.column.cardOrder, "id")
 
-    // console.log(title)
+    //console.log(column)
     const [isShowModelDelete, setisShowModelDelete] = useState(false);
     const [titleColumn, setTitleColumn] = useState("");
     const [isFistClick, setIsFistClick] = useState(true);
     const inputRef = useRef(null)
+    const [isShowNewAddCard, setisShowNewAddCard] = useState(false);
+    const [valueTextArea, setvalueTextArea] = useState("");
+    const textAreaRef = useRef(null)
+
+    useEffect(() => {
+
+        if (isShowNewAddCard === true && textAreaRef && textAreaRef.current) {
+            textAreaRef.current.focus(); //if içindekiler sağlanırsa inputref i verdiğimiz yer focuslanıyor
+
+        }
+    }, [isShowNewAddCard])//isShowNewAddCard true olunca açılan modelda textarea içine focusluyor
 
     useEffect(() => {
         if (column.column && column.column.title)
@@ -61,6 +74,27 @@ export default function Column(column) {
         column.onUpdateColumn(newColumn)
     }
 
+    const handleAddNewCard = () => {
+        if(!valueTextArea){
+            textAreaRef.current.focus()//boşsa value değeri içine tekrardan focusluyor
+            return;
+        }
+        const newCard = {
+            id:uuidv4(),//benzersiz kimlik oluşturma
+            boardId: column.column.boardId,
+            columnId: column.column.id,
+            title: valueTextArea,
+            image: null
+        }
+    
+        const newColumn = {...column.column};
+        newColumn.cards= [...newColumn.cards,newCard]//varolanı olanın üstüne yeniyi ekleme
+        newColumn.cardOrder = newColumn.cards.map(card => card.id);
+        console.log(newColumn)
+        column.onUpdateColumn(newColumn);
+        setvalueTextArea("");
+        setisShowNewAddCard(false);
+    }
     return (
         <>
             <div className="column">
@@ -120,25 +154,36 @@ export default function Column(column) {
                             )) : <></>}
 
                     </Container>
-                    <div className="add-new-card">
-                        <textarea rows={2}
-                            className="form-control"
-                            placeholder="Enter a title for this card..."
-                        > 
-                        </textarea>
-                        <div className="group-btn">
-                            <button className="btn btn-primary" >add card</button>
-                            <i className="fa fa-times icon" ></i>
-                        </div>
-                    </div>
-
+                    {isShowNewAddCard === true &&
+                        <div className="add-new-card">
+                            <textarea rows={2}
+                                className="form-control"
+                                placeholder="Enter a title for this card..."
+                                ref={textAreaRef}
+                                value={valueTextArea}
+                                onChange={(e) => { setvalueTextArea(e.target.value) }}
+                            >
+                            </textarea>
+                            <div className="group-btn">
+                                <button className="btn btn-primary" onClick={() => handleAddNewCard()} >add card</button>
+                                <i className="fa fa-times icon" onClick={() => setisShowNewAddCard(false)} ></i>
+                            </div>
+                        </div>}
                 </div>
-                <footer>
-                    <div className="footer-action">
-                        <i className="fa fa-plus icon"></i> Add Another Card
-                    </div>
 
-                </footer>
+                {isShowNewAddCard === false &&
+
+                    <footer>
+                        <div className="footer-action" onClick={() => setisShowNewAddCard(true)}>
+                            <i
+                                className="fa fa-plus icon"
+                            ></i> Add Another Card
+                        </div>
+
+                    </footer>}
+
+
+
             </div>
             <ConfirmModal
                 show={isShowModelDelete}

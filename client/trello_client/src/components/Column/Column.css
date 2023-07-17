@@ -112,6 +112,10 @@
 
 }
 
+.add-new-card  {
+    margin-bottom:10px ;
+}
+
 .add-new-card .group-btn {
     display: flex;
     padding-top: 10px;
